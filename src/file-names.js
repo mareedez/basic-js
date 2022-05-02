@@ -17,11 +17,21 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function renameFiles(names) {
   let result = []
-  for (let element of names){
-    if(!(result.includes(element))){
-      result += element
+  let counter = 1
+  names.forEach((element) => {
+    if (result.includes(element)){
+      while (result.includes(element + `(${counter})`)) {
+        counter += 1;
+      }
+      result.push(element +`(${counter})`);
+      counter = 1;
+    } else {
+      result.push(element)
     }
-  }
+  })
+
+  return result;
+
 }
 
 module.exports = {
